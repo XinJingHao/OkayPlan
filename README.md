@@ -52,7 +52,8 @@ There are 5 parameters that could be configured when running OkayPlan:
 
 - **FPS (int; default `'0'`)**:
   
-  - The FPS when rendering. 0 means render at the maximum speed.
+  - The FPS when rendering
+  - **'0'** means render at the maximum speed
 
 You can try other configurations in the following way:
 ```bash
