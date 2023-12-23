@@ -57,7 +57,7 @@ There are 5 parameters that could be configured when running OkayPlan:
 
 You can try other configurations in the following way:
 ```bash
-python Application_Phase.py --dvc cpu --RO False --FPS 30
+python Application_Phase.py --dvc cpu --KP False --FPS 30
 ```
 
 ## Citing the Project
