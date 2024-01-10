@@ -3,8 +3,9 @@
 <img width="100%" height="auto" src="https://github.com/XinJingHao/OkayPlan/blob/main/Overview.png">
 </div>
 
+<br>
 
-## Comparision with other method:
+## Comparison with other method:
 <div align="center">
 <img width="75%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/All_gpp.gif">
 </div>
