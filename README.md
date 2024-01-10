@@ -1,10 +1,13 @@
 # OkayPlan: A real-time path palnning algorithm for dynamic environments
-
 <div align="center">
 <img width="100%" height="auto" src="https://github.com/XinJingHao/OkayPlan/blob/main/Overview.png">
 </div>
 
-The authors implementation of OkayPlan.
+
+## Comparision with other method:
+<div align="center">
+<img width="75%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/All_gpp.gif">
+</div>
 
 ## Dependencies:
 
