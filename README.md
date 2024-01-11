@@ -5,7 +5,7 @@
 
 <br>
 
-## Comparison with other method:
+## Comparison with other method (real-time rendering):
 <div align="center">
 <img width="75%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/All_gpp.gif">
 </div>
