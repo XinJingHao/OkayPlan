@@ -69,11 +69,12 @@ python Application_Phase.py --dvc cpu --KP False --FPS 30
 To cite this repository in publications:
 
 ```bibtex
-@article{Color2023JinghaoXin,
-  title={XXX},
-  author={Jinghao Xin, Jinwoo Kim, Zhi Li, and Ning Li},
-  journal={arXiv preprint arXiv:2305.04180},
-  url={https://doi.org/10.48550/arXiv.2305.04180},
-  year={2023}
+@misc{OkayPlan,
+      title={OkayPlan: Obstacle Kinematics Augmented Dynamic Real-time Path Planning via Particle Swarm Optimization}, 
+      author={Jinghao Xin and Jinwoo Kim and Shengjia Chu and Ning Li},
+      year={2024},
+      eprint={2401.05019},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO}
 }
 ```
