@@ -7,7 +7,7 @@ import numpy as np
 import time
 
 class SEPSO_Down():
-    def __init__(self, dvc, Random_Obs = True, DPI=True, Kinematics_Penalty=True):
+    def __init__(self, dvc, Random_Obs = True, DPI=True, Kinematics_Penalty=True, Playmode=False):
         '''
         dvc(string; 'cpu' or 'cuda'): running device of SEPSO_Down
         Random_Obs(bool; True or False): True = random obstacles; False = consistent obstacles
@@ -27,6 +27,7 @@ class SEPSO_Down():
 
         # Map Related:
         self.window_size = 366
+        self.Playmode = Playmode
         self.Random_Obs = Random_Obs
         if self.Random_Obs:
             self.Generated_Obstacle_Segments = torch.load('Maps/RMO_Obstacle_Segments.pt').to(self.dvc) #(M,2,2) or (4*O,2,2)
@@ -93,6 +94,9 @@ class SEPSO_Down():
         '''每次Dynamicly_Plan_And_Track前要执行一次'''
         self.x_start, self.y_start = 20, 20 # 起点坐标
         self.x_target, self.y_target = 330, 330 # 终点坐标
+        if self.Playmode:
+            self.y_start = np.random.randint(20,340) # 随机起点
+            self.y_target = np.random.randint(20, 340) # 随机终点
         self.d2target = ((self.x_start-self.x_target)**2 + (self.y_start-self.y_target)**2)**0.5 # distance from start to target
         self.initail_d2target = ((self.x_start-self.x_target)**2 + (self.y_start-self.y_target)**2)**0.5
 
@@ -266,8 +270,9 @@ class SEPSO_Down():
         self.Locate[1:4, :, :, self.NP - 1] = self.x_target
         self.Locate[1:4, :, :, 2 * self.NP - 1] = self.y_target
 
-    def _update_map(self):
-        ''' 更新起点、终点、障碍物, 每次iterate后执行一次'''
+    def _update_map(self, act=None):
+        ''' 更新起点、终点、障碍物, 每次iterate后执行一次
+            act=None时，自动更新终点; act为0~4时，根据键盘输入更新终点'''
         # 起点运动:
         if self.d2target<40: x_wp, y_wp = self.x_target, self.y_target
         else: x_wp, y_wp = self.Kinmtc[3, 0, 0, 1].item(), self.Kinmtc[3, 0, 0, self.NP + 1].item()
@@ -278,13 +283,22 @@ class SEPSO_Down():
         self.d2target = ((self.x_start-self.x_target)**2 + (self.y_start-self.y_target)**2)**0.5 # distance from start to target
 
         # 终点运动:
-        self.y_target += self.Target_V
-        if self.y_target > self.Search_range[1]:
-            self.y_target = self.Search_range[1]
-            self.Target_V *= -1
-        if self.y_target < self.Search_range[0]:
-            self.y_target = self.Search_range[0]
-            self.Target_V *= -1
+        if act is not None: # 根据键盘控制移动目标点
+            if act == 0: pass
+            elif act == 1: self.x_target -= self.Target_V
+            elif act == 2: self.y_target -= self.Target_V
+            elif act == 3: self.x_target += self.Target_V
+            elif act == 4: self.y_target += self.Target_V
+            self.x_target = np.clip(self.x_target, 320, 366)
+            self.y_target = np.clip(self.y_target, 0,366)
+        else: # 沿着y轴自动移动目标点
+            self.y_target += self.Target_V
+            if self.y_target > self.Search_range[1]:
+                self.y_target = self.Search_range[1]
+                self.Target_V *= -1
+            if self.y_target < self.Search_range[0]:
+                self.y_target = self.Search_range[0]
+                self.Target_V *= -1
 
         # 障碍物运动
         self.Grouped_Obs_Segments += self.Obs_V
@@ -420,7 +434,17 @@ class SEPSO_Down():
             TPP = TPP + ((time.time()-t0) - TPP) / c #增量法求平均 Time Per Planning
 
             if self.render: self._render_frame()
-            self._update_map()
+
+            if self.Playmode:
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_LEFT]: act = 1
+                elif keys[pygame.K_UP]: act = 2
+                elif keys[pygame.K_RIGHT]: act = 3
+                elif keys[pygame.K_DOWN]:act = 4
+                else: act = 0
+                self._update_map(act) # 当act不为空时，根据键盘输入控制目标点
+            else:
+                self._update_map() # 当act为空时，自动更新目标点
 
             if self.d2target < 20:
                 print(f'Arrived! Lenth:{c*self.Start_V}')
