@@ -38,7 +38,7 @@ python Application_Phase.py --Playmode True --FPS 30
 
 ### Basic parameters:
 
-There are 5 parameters that could be configured when running OkayPlan:
+There are 6 parameters that could be configured when running OkayPlan:
 
 - **dvc (string; default `'dvc'`)**:
   
