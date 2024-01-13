@@ -1,4 +1,4 @@
-# OkayPlan: A real-time path palnning algorithm for dynamic environments
+# OkayPlan: A real-time path planning algorithm for dynamic environments
 This is the authors' implementation of [OkayPlan](https://arxiv.org/abs/2401.05019).
 
 <div align="center">
