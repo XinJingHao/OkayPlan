@@ -13,7 +13,6 @@ This is the authors' implementation of [OkayPlan](https://arxiv.org/abs/2401.050
 torch >= 2.1.1
 pygame >= 2.5.2
 numpy >= 1.26.2
-tensorboard >= 2.15.1
 
 python >= 3.11.5
 ```
