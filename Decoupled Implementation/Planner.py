@@ -165,6 +165,7 @@ class OkayPlan():
         self.Obs_penalty, Pdct_Obs_penalty = self._get_Obs_Penalty() # both in (G,N)
 
         # Fitness = Length_Term + Collision_Penalty + Kinematics_Penalty + Lead_Point_Penalty
+        # 用d2target实现Dynamic Normalization,保证不同地图尺寸时, 惩罚相都与目标相的幅值匹配
         # Note that Lead_Point_Penalty is not necessary when there is a Local Planner
         return Path_lenth +\
                self.params[48] * self.d2target * (self.Obs_penalty) ** self.params[49] + \
