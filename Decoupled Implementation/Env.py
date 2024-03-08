@@ -1,5 +1,6 @@
 import torch
 import pygame
+import os, shutil
 import numpy as np
 
 class DynamicEnv():
@@ -28,6 +29,11 @@ class DynamicEnv():
         self.Start_V = opt.Start_V # 被控对象的移动速度
 
         self._Render_Init(renderPdct=opt.KP, FPS=opt.FPS)  # 渲染初始化
+        self.Record_freq = opt.Record_freq # 截图频率
+        if self.Record_freq>=0:
+            try: shutil.rmtree('Records')
+            except: pass
+            os.mkdir('Records')
 
 
     def _uniform_random(self, low, high, shape):
@@ -58,6 +64,8 @@ class DynamicEnv():
         self.renderPdct = renderPdct # True: 画预测线, False: 画障碍物速度方向
 
         self.FPS = FPS
+
+        self.font = pygame.font.Font(None, 36)
 
     def Map_Init(self):
         self.x_start, self.y_start = 0.05*self.window_size, 0.05*self.window_size # 起点坐标, (18,18) for 366
@@ -96,12 +104,14 @@ class DynamicEnv():
         self.Previous_target_point = None
 
         self.collide = False
+        self.counter = 0
 
         return self._get_envInfo()
 
 
     def Update(self, path, act=None):
         self.path = path
+        self._render_frame()
 
         ''' 更新起点、终点、障碍物, 每次得到规划路径后执行一次
             act=None时，自动更新终点; act为0~4时，根据键盘输入更新终点'''
@@ -161,7 +171,6 @@ class DynamicEnv():
         self.Grouped_Obs_center = self.Grouped_Obs_Segments.mean(axis=-3)[:, 0, :] # (O,2)
         self.Normed_Obs_V = (self.Obs_V/((self.Obs_V**2).sum(dim=-1).pow(0.5).unsqueeze(dim=-1)+1e-8)).squeeze() # (O,2)
         self.Grouped_Obs_Vend = self.Grouped_Obs_center + 20*self.Normed_Obs_V
-        self._render_frame()
 
         return self._get_envInfo()
 
@@ -229,10 +238,19 @@ class DynamicEnv():
         # pygame.draw.circle(self.canvas, (0, 255, 255), (x_wp, y_wp), 3)  # 终点
 
         self.window.blit(self.canvas, self.map_pyg.get_rect())
+        # 显示 Timestep
+        text = self.font.render(f'Timestep:{self.counter}', True, (150, 150, 150))
+        self.window.blit(text, (115, 0))
+
+
         pygame.event.pump()
         pygame.display.update()
         self.clock.tick(self.FPS)
 
+        # 保存截图
+        if (self.Record_freq>=0) and (self.counter % self.Record_freq == 0):
+            pygame.image.save(self.window, f'Records/{self.counter}.png')
+        self.counter += 1
 
 def str2bool(v):
     '''Fix the bool BUG for argparse: transfer string to bool'''
