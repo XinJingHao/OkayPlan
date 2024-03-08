@@ -73,6 +73,7 @@ There are 6 main parameters that could be configured when running OkayPlan:
 - 2024/3/14
   - Add support for obstacles with different number of segments
   - Add ```std_Trsd``` for ```Planner.py```, which balance between real-time performance and planning quality
+  - Add screen record option
 
 <br>
 
