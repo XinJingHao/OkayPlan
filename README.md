@@ -79,10 +79,14 @@ There are 6 parameters that could be configured when running OkayPlan:
 
 <br>
 
-## Decoupled Implementation
+## Decoupled Implementation:
 The decoupled implementation of OkayPlan can be found in folder _'Decoupled Implementation'_, where the ```L_SEPSO.py``` is decoupled into ```Planner.py```, ```Env.py```, and ```mian.py```.
 
-## Citing this Project
+## ROS Implementation:
+Link: https://github.com/XinJingHao/okayplan_ros
+[![okayplan_ros](https://github.com/XinJingHao/Images/blob/main/OkayPlan/okayplan_youtube.png)](https://www.youtube.com/watch?v=zufvYkhRW5w)
+
+## Citing this Project:
 
 To cite this repository in publications:
 
