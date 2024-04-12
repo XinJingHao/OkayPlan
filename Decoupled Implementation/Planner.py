@@ -5,19 +5,22 @@ import torch
 class OkayPlan():
     '''
     OkayPlan: A real-time path planner for dynamic environment
-    Author: Jinghao Xin
+    Author: Jinghao Xin, Jinwoo Kim, Shengjia Chu, and Ning Li
 
-    Paper Web: https://arxiv.org/abs/2401.05019
+    Paper Web: https://www.sciencedirect.com/science/article/pii/S002980182401179X
     Code Web: https://github.com/XinJingHao/OkayPlan
 
     Cite this algorithm:
-    @misc{OkayPlan,
-      title={OkayPlan: Obstacle Kinematics Augmented Dynamic Real-time Path Planning via Particle Swarm Optimization},
-      author={Jinghao Xin and Jinwoo Kim and Shengjia Chu and Ning Li},
-      year={2024},
-      eprint={2401.05019},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO}}
+    @article{XinOkayPlan,
+    title = {OkayPlan: Obstacle Kinematics Augmented Dynamic real-time path Planning via particle swarm optimization},
+    journal = {Ocean Engineering},
+    volume = {303},
+    pages = {117841},
+    year = {2024},
+    issn = {0029-8018},
+    doi = {https://doi.org/10.1016/j.oceaneng.2024.117841},
+    url = {https://www.sciencedirect.com/science/article/pii/S002980182401179X},
+    author = {Jinghao Xin and Jinwoo Kim and Shengjia Chu and Ning Li}}
 
     Only for non-commercial purposes
     All rights reserved
