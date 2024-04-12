@@ -91,12 +91,15 @@ Link: https://github.com/XinJingHao/okayplan_ros
 To cite this repository in publications:
 
 ```bibtex
-@misc{OkayPlan,
-      title={OkayPlan: Obstacle Kinematics Augmented Dynamic Real-time Path Planning via Particle Swarm Optimization}, 
-      author={Jinghao Xin and Jinwoo Kim and Shengjia Chu and Ning Li},
-      year={2024},
-      eprint={2401.05019},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO}
+@article{XinOkayPlan,
+title = {OkayPlan: Obstacle Kinematics Augmented Dynamic real-time path Planning via particle swarm optimization},
+journal = {Ocean Engineering},
+volume = {303},
+pages = {117841},
+year = {2024},
+issn = {0029-8018},
+doi = {https://doi.org/10.1016/j.oceaneng.2024.117841},
+url = {https://www.sciencedirect.com/science/article/pii/S002980182401179X},
+author = {Jinghao Xin and Jinwoo Kim and Shengjia Chu and Ning Li},
 }
 ```
