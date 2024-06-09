@@ -237,7 +237,7 @@ class OkayPlan():
 
         self._iterate()
 
-        self.Priori_Path = self.Kinmtc[3,0,0].clone()
+        self.Priori_Path = self.Kinmtc[3,0,0].clone() # [x0,x1,...,y0,y1,...], shape=(D,), on self.dvc
 
         return self.Kinmtc[3,0,0].clone(), self.Tbest_Collision_Free
 
