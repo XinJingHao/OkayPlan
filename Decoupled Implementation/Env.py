@@ -76,9 +76,11 @@ class DynamicEnv():
         self.d2target = ((self.x_start-self.x_target)**2 + (self.y_start-self.y_target)**2)**0.5 # distance from start to target
 
         # 障碍物坐标：
-        self.Obs_Segments = self.Generated_Obstacle_Segments.clone()
-        self.Grouped_Obs_Segments = self.Obs_Segments.reshape(self.O,self.seg,2,2) #注意Grouped_Obs_Segments 和 Obs_Segments 是联动的
-        # (O,4,2,2): O个障碍物，4条边，2个端点，2维坐标
+        # Obs_Segments, shape=(O*seg,2,2), 作用: 返回给Planner进行碰撞检测
+        # Grouped_Obs_Segments, shape=(O,seg,2,2), 作用: 障碍物移动; 生成障碍物预测线; 生成障碍物箭头; 绘制障碍物
+        # 注意Grouped_Obs_Segments 和 Obs_Segments 是联动的
+        self.Obs_Segments = self.Generated_Obstacle_Segments.clone() # (O*4,2,2)
+        self.Grouped_Obs_Segments = self.Obs_Segments.reshape(self.O,self.seg,2,2) # O个障碍物，seg条边，2个端点，2维坐标
 
         # 障碍物速度:
         self.Obs_V = self._uniform_random(1, self.Obstacle_V, (self.O, 1, 1, 2))  # 每个障碍物的x方向速度和y方向速度
