@@ -122,9 +122,9 @@ class DynamicEnv():
         if self.d2target<40: x_wp, y_wp = self.x_target, self.y_target
         else: x_wp, y_wp = self.path[1].item(), self.path[self.NP + 1].item()
         V_vector = torch.tensor([x_wp, y_wp]) - torch.tensor([self.x_start, self.y_start])
-        V_vector = V_vector / torch.sqrt(V_vector.pow(2).sum()+1e-6) # normalization
-        self.x_start += V_vector[0].item() * self.Start_V
-        self.y_start += V_vector[1].item() * self.Start_V
+        V_vector = (torch.nn.functional.normalize(V_vector,dim=0) * self.Start_V).tolist()
+        self.x_start += V_vector[0]
+        self.y_start += V_vector[1]
         self.d2target = ((self.x_start-self.x_target)**2 + (self.y_start-self.y_target)**2)**0.5 # distance from start to target
 
         # 终点运动:
@@ -178,10 +178,10 @@ class DynamicEnv():
 
     def _render_frame(self):
         '''渲染+判断start_point是否与障碍物发生碰撞'''
-        Grouped_Obs_Segments = self.Grouped_Obs_Segments.cpu().int().numpy()
-        Grouped_pdct_segments = self.Grouped_pdct_segments.int().cpu().numpy()
-        Grouped_Obs_center = self.Grouped_Obs_center.int().cpu().numpy()
-        Grouped_Obs_Vend = self.Grouped_Obs_Vend.int().cpu().numpy()
+        Grouped_Obs_Segments = self.Grouped_Obs_Segments.cpu().int().numpy() # (O,seg,2,2)
+        Grouped_pdct_segments = self.Grouped_pdct_segments.int().cpu().numpy() # (dynamic_obs,seg,2,2)
+        Grouped_Obs_center = self.Grouped_Obs_center.int().cpu().numpy() # (O,2)
+        Grouped_Obs_Vend = self.Grouped_Obs_Vend.int().cpu().numpy() # (O,2)
 
         # 绘制轨迹图层：
         if self.Previous_Grouped_Obs_center is not None:
@@ -207,18 +207,18 @@ class DynamicEnv():
         if (oc_gd_map[x-1:x+2, y-1:y+2]==0).all(): self.collide = True # 判断点进行膨胀再判断比障碍物腐蚀再判断快
         else: self.collide = False
 
-        for _ in range(self.O):
-            # 画预测线
-            if _ < self.dynamic_obs:
-                if self.renderPdct:
-                    for i in range(self.seg):
-                        pygame.draw.line(self.map_pyg,(255, 0, 255),Grouped_pdct_segments[_,i,0],Grouped_pdct_segments[_,i,1],width=2)
-                else:
-                    start, end = pygame.Vector2(Grouped_Obs_center[_,0], Grouped_Obs_center[_,1]), pygame.Vector2(Grouped_Obs_Vend[_,0], Grouped_Obs_Vend[_,1])
-                    direction = end - start
-                    arrow_points = [end, end - 12 * direction.normalize().rotate(30),end - 12 * direction.normalize().rotate(-30)]
-                    pygame.draw.line(self.map_pyg, (200, 200, 200), start, end, 3)
-                    pygame.draw.polygon(self.map_pyg, (200, 200, 200), arrow_points)
+        for _ in range(self.dynamic_obs):
+            if self.renderPdct:
+                # 画预测线
+                for i in range(self.seg):
+                    pygame.draw.line(self.map_pyg,(255, 0, 255),Grouped_pdct_segments[_,i,0],Grouped_pdct_segments[_,i,1],width=2)
+            else:
+                # 画箭头
+                start, end = pygame.Vector2(Grouped_Obs_center[_,0], Grouped_Obs_center[_,1]), pygame.Vector2(Grouped_Obs_Vend[_,0], Grouped_Obs_Vend[_,1])
+                direction = end - start
+                arrow_points = [end, end - 12 * direction.normalize().rotate(30),end - 12 * direction.normalize().rotate(-30)]
+                pygame.draw.line(self.map_pyg, (200, 200, 200), start, end, 3)
+                pygame.draw.polygon(self.map_pyg, (200, 200, 200), arrow_points)
         self.canvas.blit(self.map_pyg, self.map_pyg.get_rect())
 
         # 画路径
