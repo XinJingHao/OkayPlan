@@ -222,13 +222,8 @@ class DynamicEnv():
         self.canvas.blit(self.map_pyg, self.map_pyg.get_rect())
 
         # 画路径
-        for p in range(self.NP - 1):
-            pygame.draw.line(
-                self.canvas,
-                (0, 0, 255),
-                (self.path[p].item(), self.path[p + self.NP].item()),
-                (self.path[p + 1].item(), self.path[p + self.NP + 1].item()),
-                width=4)
+        waypoints_list = self.path.cpu().view(2,self.NP).transpose(0,1).tolist() # (D,) tensor to (2,NP) list
+        pygame.draw.lines(self.canvas,(0, 0, 255),False,waypoints_list,width=4)
 
 
         # 画起点、终点
