@@ -91,13 +91,13 @@ class DynamicEnv():
         pdct_Grouped_Obs_endpoints = self.Grouped_Obs_Segments + self.Predict_Scale_param * self.Obs_V
         self.Grouped_pdct_segments = torch.stack((self.Grouped_Obs_Segments[0:self.dynamic_obs, :, 0, :],
                                                   pdct_Grouped_Obs_endpoints[0:self.dynamic_obs, :, 0, :]),
-                                                 dim=2)  # (dynamic_obs,4,2,2)
+                                                 dim=2)  # (dynamic_obs,seg,2,2)
         self.Flat_pdct_segments = self.Grouped_pdct_segments.reshape(self.dynamic_obs * self.seg, 2, 2) # 用于计算OkayPlan计算交叉点个数
 
         # Render相关:
         # 生成障碍物速度箭头
         self.Grouped_Obs_center = self.Grouped_Obs_Segments.mean(axis=-3)[:, 0, :] # (O,2)
-        self.Normed_Obs_V = (self.Obs_V/((self.Obs_V**2).sum(dim=-1).pow(0.5).unsqueeze(dim=-1)+1e-8)).squeeze() # (O,2)
+        self.Normed_Obs_V = torch.nn.functional.normalize(self.Obs_V, dim=-1).squeeze() # (O,2)
         self.Grouped_Obs_Vend = self.Grouped_Obs_center + 20*self.Normed_Obs_V
         # 初始化轨迹图层
         self.trajectory_pyg.fill((255,255,255))
@@ -165,13 +165,13 @@ class DynamicEnv():
         # 将当前位置和预测位置连线:
         self.Grouped_pdct_segments = torch.stack((self.Grouped_Obs_Segments[0:self.dynamic_obs, :, 0, :],
                                                   pdct_Grouped_Obs_endpoints[0:self.dynamic_obs, :, 0, :]),
-                                                 dim=2)  # (dynamic_obs,4,2,2)
+                                                 dim=2)  # (dynamic_obs,seg,2,2)
         self.Flat_pdct_segments = self.Grouped_pdct_segments.reshape(self.dynamic_obs * self.seg, 2, 2)  # 用于计算OkayPlan计算交叉点个数
 
 
         # 生成障碍物速度箭头, 渲染
         self.Grouped_Obs_center = self.Grouped_Obs_Segments.mean(axis=-3)[:, 0, :] # (O,2)
-        self.Normed_Obs_V = (self.Obs_V/((self.Obs_V**2).sum(dim=-1).pow(0.5).unsqueeze(dim=-1)+1e-8)).squeeze() # (O,2)
+        self.Normed_Obs_V = torch.nn.functional.normalize(self.Obs_V, dim=-1).squeeze() # (O,2)
         self.Grouped_Obs_Vend = self.Grouped_Obs_center + 20*self.Normed_Obs_V
 
         return self._get_envInfo()
