@@ -51,7 +51,9 @@ if __name__ == '__main__':
         done = False
 
         while not done:
-            path, collision_free = planner.plan(env_info) # collision_free仅代表路径是否无碰撞，并不代表start_point的碰撞情况
+            path, collision_free = planner.plan(env_info)
+            # path = [x0,x1,...,y0,y1,...], shape=(D,), on self.dvc
+            # collision_free仅代表路径是否无碰撞，并不代表start_point的碰撞情况
 
             if opt.Playmode:
                 keys = pygame.key.get_pressed()
