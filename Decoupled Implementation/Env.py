@@ -177,7 +177,9 @@ class DynamicEnv():
         return self._get_envInfo()
 
     def _render_frame(self):
-        '''渲染+判断start_point是否与障碍物发生碰撞'''
+        '''渲染+判断start_point是否与障碍物发生碰撞
+        trajectory_pyg[绘制轨迹]->map_pyg[绘制障碍物,判断碰撞,画预测线]->canvas[画路径,起点,终点]->显示'''
+        
         Grouped_Obs_Segments = self.Grouped_Obs_Segments.cpu().int().numpy() # (O,seg,2,2)
         Grouped_pdct_segments = self.Grouped_pdct_segments.int().cpu().numpy() # (dynamic_obs,seg,2,2)
         Grouped_Obs_center = self.Grouped_Obs_center.int().cpu().numpy() # (O,2)
