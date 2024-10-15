@@ -1,11 +1,14 @@
 # OkayPlan: A real-time path planning algorithm for dynamic environments
-This is the authors' implementation of [OkayPlan](https://arxiv.org/abs/2401.05019).
+
 
 <div align="center">
-<img width="100%" height="auto" src="https://github.com/XinJingHao/OkayPlan/blob/main/Overview.png">
+<img width="30%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/4.gif">
+<img width="30%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/6.gif">
+<img width="30%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/10.gif">
 </div>
 
-<br>
+This is the authors' implementation of [OkayPlan](https://arxiv.org/abs/2401.05019).
+
 
 ## Dependencies:
 
