@@ -3,9 +3,9 @@
 ## Dependencies:
 
 ```bash
-torch >= 2.1.1
-pygame >= 2.5.2
-numpy >= 1.26.2
+torch >= 2.4.1
+pygame >= 2.6.1
+numpy >= 2.1.1
 
 python >= 3.11.5
 ```
