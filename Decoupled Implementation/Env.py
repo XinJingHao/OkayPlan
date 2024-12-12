@@ -13,7 +13,7 @@ class DynamicEnv():
         self.Playmode = opt.Playmode
         self.Random_Obs = opt.RO
         self.seg = opt.seg
-        self.Generated_Obstacle_Segments = torch.load(f'Maps/Obstacle_Segments_S{self.seg}.pt').to(self.dvc) #(seg*O,2,2)
+        self.Generated_Obstacle_Segments = torch.load(f'Maps/Obstacle_Segments_S{self.seg}.pt', weights_only=True).to(self.dvc) #(seg*O,2,2)
         self.O = self.Generated_Obstacle_Segments.shape[0] // self.seg  # 障碍物数量
         # 根据window_size对障碍物位置进行移动。注意：1) Grouped_GOS与Generated_Obstacle_Segments是联动的 2) 366是生成Maps/*.pt文件时的window_size
         Grouped_GOS = self.Generated_Obstacle_Segments.reshape(self.O,self.seg,2,2)

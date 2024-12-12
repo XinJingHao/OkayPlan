@@ -70,6 +70,12 @@ class OkayPlan():
         '''Dynamic Prioritized Initialization'''
         self.DPI = opt.DPI
 
+        '''Compile: slow down the first planning, but boost the following planning'''
+        if opt.compile:
+            self._get_Obs_Penalty = torch.compile(self._get_Obs_Penalty)
+        else:
+            print("When use OkayPlan, you can set 'compile=True' to boost the planning speed.")
+
     def _uniform_random(self, low, high, shape):
         '''Generate uniformly random number in [low, high) in 'shape' on self.dvc'''
         return (high - low)*torch.rand(shape, device=self.dvc) + low

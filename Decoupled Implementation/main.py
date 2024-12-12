@@ -21,6 +21,7 @@ parser.add_argument('--Max_iterations', type=int, default=50, help='maximum numb
 parser.add_argument('--N', type=int, default=170, help='number of particles in each group')
 parser.add_argument('--D', type=int, default=14, help='particle dimension: number of waypoints = D/2')
 parser.add_argument('--Quality', type=float, default=10, help='planning quality: the smaller, the better quality, and the longer time')
+parser.add_argument('--compile', type=str2bool, default=True, help='whether to use torch.compile to boost calculation speed')
 
 # Env related:
 parser.add_argument('--window_size', type=int, default=366, help='render window size, minimal: 366')
@@ -40,7 +41,7 @@ if opt.Playmode:
 
 
 if __name__ == '__main__':
-    params = torch.load('Relax0.4_S0_ 2023-09-23 21_38.pt', map_location=opt.dvc)[-1]  # [-1] means the final parameters
+    params = torch.load('Relax0.4_S0_ 2023-09-23 21_38.pt', map_location=opt.dvc, weights_only=True)[-1]  # [-1] means the final parameters
     if not opt.KP: params[50] = 0
 
     env = DynamicEnv(opt, Predict_Scale_param=params[54].int())
