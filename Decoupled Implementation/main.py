@@ -21,7 +21,7 @@ parser.add_argument('--Max_iterations', type=int, default=50, help='maximum numb
 parser.add_argument('--N', type=int, default=170, help='number of particles in each group')
 parser.add_argument('--D', type=int, default=14, help='particle dimension: number of waypoints = D/2')
 parser.add_argument('--Quality', type=float, default=10, help='planning quality: the smaller, the better quality, and the longer time')
-parser.add_argument('--compile', type=str2bool, default=True, help='whether to use torch.compile to boost calculation speed')
+parser.add_argument('--compile', type=str2bool, default=False, help='whether to use torch.compile to boost calculation speed')
 
 # Env related:
 parser.add_argument('--window_size', type=int, default=366, help='render window size, minimal: 366')
