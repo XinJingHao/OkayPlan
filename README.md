@@ -1,13 +1,27 @@
-# OkayPlan: A real-time path planning algorithm for dynamic environments
+<p align="center">
+  <img src="https://github.com/XinJingHao/Images/blob/main/ColorDynamic/OPCD-logo.png" width="300" /><br>
+  <img src="https://img.shields.io/badge/Python-blue" />
+  <img src="https://img.shields.io/badge/PathPlanning-blueviolet" />
+  <img src="https://img.shields.io/badge/Pytorch-ff69b4" />
+</p>
+
+<br/>
+
+<p align="center">
+  <strong>OkayPlan: A real-time path planning algorithm for</strong><br>
+  <strong>Dynamic environments</strong>
+</p>
 
 
-<div align="center">
-<img width="30%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/4.gif">
-<img width="30%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/6.gif">
-<img width="30%" height="auto" src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/10.gif">
-</div>
+<br/>
 
-This is the authors' implementation of [OkayPlan](https://arxiv.org/abs/2401.05019).
+## Gallery
+<p align="center">
+  <img src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/4.gif" width="250" />
+  <img src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/6.gif" width="250" />
+  <img src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/10.gif" width="250" />
+</p>
+
 
 
 ## Dependencies:
