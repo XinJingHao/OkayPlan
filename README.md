@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/XinJingHao/Images/blob/main/ColorDynamic/OPCD-logo.png" width="300" /><br>
+  <img src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/OkayPlan-logo.png" width="300" /><br>
   <img src="https://img.shields.io/badge/Python-blue" />
   <img src="https://img.shields.io/badge/PathPlanning-blueviolet" />
   <img src="https://img.shields.io/badge/Pytorch-ff69b4" />
