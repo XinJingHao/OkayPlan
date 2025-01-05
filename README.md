@@ -8,8 +8,8 @@
 <br/>
 
 <p align="center">
-  <strong>OkayPlan: A real-time path planning algorithm for</strong><br>
-  <strong>Dynamic environments</strong>
+  <strong>OkayPlan: A Real-time Path Planning Algorithm for</strong><br>
+  <strong>Dynamic Environments</strong>
 </p>
 
 
