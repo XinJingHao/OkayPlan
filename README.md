@@ -22,6 +22,10 @@
   <img src="https://github.com/XinJingHao/Images/blob/main/OkayPlan/10.gif" width="250" />
 </p>
 
+<p align="center">
+  <img src="https://github.com/XinJingHao/Images/blob/main/ColorDynamic/warehouse.gif" width="750" />
+</p>
+
 
 
 ## Dependencies:
